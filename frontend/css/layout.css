@@ -1,0 +1,534 @@
+.app-shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+/* ---- Sidebar ----
+   Structure : flex column, navigation en haut/milieu (flex:1),
+   statut + déconnexion épinglés en bas (via flex, pas de positionnement absolu).
+   Système d'espacement : 4 / 8 / 12 / 16 / 20 / 24 / 32 px.
+*/
+.sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--white);
+  padding: 16px;
+}
+
+/* Header / marque */
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0 24px;
+}
+
+.sidebar-close,
+.topbar-menu {
+  display: none;
+}
+
+.brand-logo {
+  height: 36px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* Logo blanc → sombre pour les fonds clairs */
+.brand-logo.dark {
+  filter: brightness(0) saturate(100%);
+}
+
+.brand-text {
+  line-height: 1.2;
+  min-width: 0;
+}
+
+.brand-text strong {
+  display: block;
+  font-size: 13.5px;
+  letter-spacing: 0.01em;
+}
+
+.brand-text span {
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* Navigation : occupe l'espace disponible, scroll interne si besoin */
+.sidebar-nav {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 16px;
+}
+
+/* Section : petit en-tête puis items rapprochés */
+.nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-group-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 0 12px;
+  margin-bottom: 8px;
+}
+
+/* Item de navigation : ligne compacte et uniforme */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.14);
+  color: var(--white);
+  font-weight: 600;
+}
+
+.nav-link svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Pied de sidebar : déconnexion épinglée en bas */
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Déconnexion : même système que les items de navigation */
+.sidebar-logout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-logout:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--white);
+}
+
+.sidebar-logout svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ---- Zone principale ---- */
+.app-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
+}
+
+/* Topbar : fil d'ariane + recherche globale + utilisateur */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  height: 60px;
+  padding: 0 28px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-crumb {
+  flex: 0 1 auto;
+  min-width: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.topbar-crumb strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.topbar-menu {
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f8fd 100%);
+  color: var(--primary);
+  box-shadow: 0 8px 20px rgba(12, 39, 74, 0.08);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.topbar-menu svg {
+  width: 18px;
+  height: 18px;
+}
+
+.topbar-menu:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  box-shadow: 0 12px 24px rgba(12, 39, 74, 0.12);
+}
+
+.topbar-menu:focus-visible,
+.sidebar-close:focus-visible,
+.sidebar-backdrop:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.topbar-search {
+  flex: 1;
+  max-width: 420px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.topbar-search:focus-within {
+  border-color: var(--secondary);
+  box-shadow: var(--focus-ring);
+}
+
+.topbar-search svg {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.topbar-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13.5px;
+  color: var(--text);
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 0;
+  padding-left: 18px;
+  border-left: 1px solid var(--border);
+}
+
+.topbar-user .avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  border: 1px solid var(--border);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.topbar-user .meta {
+  line-height: 1.15;
+}
+
+.topbar-user .meta strong {
+  display: block;
+  font-size: 12.5px;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topbar-user .meta span {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.app-main {
+  flex: 1;
+  padding: 28px 32px 48px;
+  min-width: 0;
+}
+
+.mobile-bottom-nav {
+  display: none;
+}
+
+/* En-tête de page standardisé */
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.page-title {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0 0 4px;
+}
+
+.page-subtitle {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  margin: 0;
+}
+
+.page-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1000px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: min(82vw, 320px);
+    min-height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.22s ease;
+    box-shadow: 0 24px 50px rgba(8, 25, 49, 0.22);
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    border: none;
+    background: rgba(8, 18, 32, 0.4);
+    cursor: pointer;
+  }
+
+  .sidebar-close,
+  .topbar-menu {
+    display: inline-flex;
+  }
+
+  .sidebar-close {
+    margin-left: auto;
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--white);
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .sidebar-close:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .topbar {
+    gap: 14px;
+    padding: 12px 18px;
+    height: auto;
+    min-height: 64px;
+  }
+
+  .topbar-user {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .topbar-search {
+    order: 4;
+    display: flex;
+    flex: 1 0 100%;
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 14px;
+  }
+
+  .topbar-search input {
+    font-size: 14px;
+  }
+
+  .topbar-crumb {
+    flex: 1 1 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .topbar-user {
+    flex-shrink: 0;
+    padding-left: 12px;
+    border-left: none;
+  }
+
+  .topbar-user .meta {
+    display: none;
+  }
+
+  .app-main {
+    padding: 22px 16px 96px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .mobile-bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 35;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -10px 30px rgba(7, 26, 51, 0.08);
+  }
+
+  .mobile-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 58px;
+    padding: 6px 4px;
+    border-radius: 16px;
+    color: #4f5b66;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .mobile-tab:hover {
+    text-decoration: none;
+    color: var(--primary);
+  }
+
+  .mobile-tab.active {
+    color: var(--primary);
+  }
+
+  .mobile-tab-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .mobile-tab.active .mobile-tab-icon {
+    background: var(--primary-soft);
+    box-shadow: inset 0 0 0 1px rgba(30, 78, 140, 0.08);
+  }
+
+  .mobile-tab-label {
+    font-size: 11.5px;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+}

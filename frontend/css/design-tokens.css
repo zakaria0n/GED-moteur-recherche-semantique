@@ -1,0 +1,78 @@
+:root {
+  /* Palette institutionnelle INRH */
+  --primary: #124B8D;
+  --primary-dark: #0c3a6b;
+  --primary-soft: #eef3fa;
+
+  --secondary: #29ABE2;
+  --secondary-soft: #e7f6fd;
+
+  --tertiary: #0071BC;
+
+  --neutral: #F4F7F9;
+
+  /* Sémantique */
+  --text: #17212b;
+  --text-muted: #5c6b7c;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --white: #ffffff;
+  --danger: #b3261e;
+  --danger-soft: #fdeeec;
+  --success: #166534;
+  --success-soft: #e8f6ec;
+  --warning: #8a6100;
+  --warning-soft: #fdf4e0;
+
+  /* Surface & ombres */
+  --surface: var(--white);
+  --shadow-sm: 0 1px 2px rgba(16, 32, 56, 0.06);
+  --shadow: 0 1px 2px rgba(16, 32, 56, 0.05), 0 6px 20px rgba(16, 32, 56, 0.06);
+  --shadow-lg: 0 2px 4px rgba(16, 32, 56, 0.06), 0 14px 36px rgba(16, 32, 56, 0.1);
+
+  /* Formes */
+  --radius-sm: 8px;
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  /* Typographie */
+  --font: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Code", Consolas, monospace;
+
+  /* Contrôles */
+  --control-h: 42px;
+  --focus-ring: 0 0 0 3px rgba(41, 171, 226, 0.35);
+}
+
+/* --- Dark Mode --- */
+[data-theme="dark"] {
+  --primary: #4a9ede;
+  --primary-dark: #3580c0;
+  --primary-soft: #1a2a3d;
+
+  --secondary: #5cc0ed;
+  --secondary-soft: #162a3a;
+
+  --tertiary: #3a9ad9;
+
+  --neutral: #0f1923;
+
+  --text: #e4e8ec;
+  --text-muted: #8899aa;
+  --border: #2a3a4a;
+  --border-strong: #3a4a5a;
+  --white: #1a2633;
+  --danger: #e8574c;
+  --danger-soft: #2d1515;
+  --success: #4caf50;
+  --success-soft: #1a2d1a;
+  --warning: #d4a730;
+  --warning-soft: #2d2510;
+
+  --surface: #1a2633;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.15), 0 6px 20px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.2), 0 14px 36px rgba(0, 0, 0, 0.35);
+
+  color-scheme: dark;
+}
